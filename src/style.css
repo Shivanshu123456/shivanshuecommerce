@@ -401,6 +401,86 @@ main .section-hero {
   height: auto;
 }
 
+/* Micro-interactions: product cards, images, hero, and buttons */
+.cards {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+}
+.cards:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 12px 30px;
+}
+.imageContainer img,
+.productImage {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+}
+.cards:hover .imageContainer img,
+.cards:hover .productImage {
+  transform: translateY(-4px) scale(1.02) rotate(-1deg);
+  filter: drop-shadow(0 8px 18px rgba(25, 76, 127, 0.25));
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.section-hero-image figure {
+  animation: floatY 7s ease-in-out infinite;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.section-hero .hero-subheading { animation: fadeUp 0.7s ease 0.05s both; }
+.section-hero .hero-heading { animation: fadeUp 0.8s ease 0.15s both; }
+.section-hero .hero-para { animation: fadeUp 0.9s ease 0.3s both; }
+
+.add-to-cart-button,
+.contact-btn,
+.hero-btn a {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+.add-to-cart-button:hover,
+.contact-btn:hover,
+.hero-btn a:hover {
+  transform: translateY(-2px) scale(1.01);
+}
+.add-to-cart-button::after,
+.contact-btn::after,
+.hero-btn a::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 120%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+.add-to-cart-button:hover::after,
+.contact-btn:hover::after,
+.hero-btn a:hover::after {
+  left: 120%;
+}
+
+.div-policy {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.div-policy:hover {
+  transform: translateY(-4px);
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 22px;
+}
+.div-policy .icons { transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.div-policy:hover .icons { transform: translateY(-2px) scale(1.06); }
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
 .grid-three-cols {
   gap: 6.4rem;
 }

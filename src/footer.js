@@ -2,14 +2,14 @@ const footerHTML = `
   <footer class="section-footer">
     <div class="footer-container container">
       <div class="content_1">
-        <img src="./images/logo.png" alt="logo" />
+        <img class="flipped-img" src="./images/logo.png" alt="logo" />
         <p>
           Welcome to Thapa EcomStore, <br />
           your ultimate destination for
           <br />
           cutting-edge gadgets!
         </p>
-        <img src="https://i.postimg.cc/Nj9dgJ98/cards.png" alt="cards" />
+        <img class="flipped-img" src="https://i.postimg.cc/Nj9dgJ98/cards.png" alt="cards" />
       </div>
       <div class="content_2">
         <h4>SHOPPING</h4>

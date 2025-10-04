@@ -29,6 +29,11 @@ html {
   color: var(--textColor);
 }
 
+/* Flips any image horizontally without affecting layout */
+.flipped-img {
+  transform: scaleX(-1);
+}
+
 /* have a look into body once after we done with rest of the styling  */
 body {
   margin: 0 auto;
@@ -390,11 +395,11 @@ main .section-hero {
   height: auto;
 }
 .div-extra:last-child img {
-  transform: rotate(5deg);
-  -moz-transform: rotate(5deg);
-  -ms-transform: rotate(5deg);
-  -o-transform: rotate(5deg);
-  -webkit-transform: rotate(5deg);
+  transform: scaleX(-1) rotate(5deg);
+  -moz-transform: scaleX(-1) rotate(5deg);
+  -ms-transform: scaleX(-1) rotate(5deg);
+  -o-transform: scaleX(-1) rotate(5deg);
+  -webkit-transform: scaleX(-1) rotate(5deg);
 }
 .div-extra .extra-laptop img {
   width: 28rem;
@@ -415,7 +420,7 @@ main .section-hero {
 }
 .cards:hover .imageContainer img,
 .cards:hover .productImage {
-  transform: translateY(-4px) scale(1.02) rotate(-1deg);
+  transform: scaleX(-1) translateY(-4px) scale(1.02) rotate(-1deg);
   filter: drop-shadow(0 8px 18px rgba(25, 76, 127, 0.25));
 }
 

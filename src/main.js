@@ -105,3 +105,57 @@ document.querySelectorAll('img').forEach(img => {
 
 // ================= Placeholder counters & carousel (hooks) =================
 // Implement counters and carousel when respective markup is added
+
+// ================= Ripple effect on click for buttons/links =================
+function attachRipple(el){
+  el.addEventListener('click', function(e){
+    const rect = el.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+    el.appendChild(ripple);
+    setTimeout(()=> ripple.remove(), 600);
+  });
+}
+[...document.querySelectorAll('button, .btn, a')].forEach(attachRipple);
+
+// ================= Basic form validation (client-side) =================
+function validateForm(form){
+  let valid = true;
+  form.querySelectorAll('.field-error').forEach(n => n.remove());
+  const controls = form.querySelectorAll('input, textarea, select');
+  controls.forEach(ctrl => {
+    ctrl.classList.remove('invalid');
+    if(ctrl.hasAttribute('required') && !ctrl.value.trim()){
+      valid = false;
+      ctrl.classList.add('invalid');
+      const span = document.createElement('div');
+      span.className = 'field-error';
+      span.textContent = `${ctrl.name || ctrl.id || 'Field'} is required`;
+      const parent = ctrl.closest('.field') || ctrl.parentElement;
+      parent && parent.appendChild(span);
+    }
+    if(ctrl.type === 'email' && ctrl.value){
+      const ok = /[^\s@]+@[^\s@]+\.[^\s@]+/.test(ctrl.value);
+      if(!ok){
+        valid = false;
+        ctrl.classList.add('invalid');
+        const span = document.createElement('div');
+        span.className = 'field-error';
+        span.textContent = 'Please enter a valid email address';
+        const parent = ctrl.closest('.field') || ctrl.parentElement;
+        parent && parent.appendChild(span);
+      }
+    }
+  });
+  return valid;
+}
+
+document.querySelectorAll('form').forEach(form => {
+  form.addEventListener('submit', (e) => {
+    if(!validateForm(form)) e.preventDefault();
+  });
+});

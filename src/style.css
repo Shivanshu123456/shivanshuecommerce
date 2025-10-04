@@ -1248,3 +1248,29 @@ footer {
 .preloader { position: fixed; inset: 0; background: var(--backgroundColor); display: grid; place-items: center; z-index: 10000; }
 .spinner { width: 48px; height: 48px; border: 4px solid var(--borderColor); border-top-color: var(--main-color); border-radius: 50%; animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===================== HOVER + RIPPLE EFFECTS ===================== */
+button, .btn, a {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+button:hover, .btn:hover, a:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  background: rgba(255,255,255,0.45);
+  animation: ripple 600ms linear;
+  pointer-events: none;
+}
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* ===================== FORM VALIDATION HELPERS ===================== */
+.field-error { color: #e11d48; font-size: 1.2rem; margin-top: .4rem; }
+input.invalid, textarea.invalid, select.invalid { border-color: #e11d48; }

@@ -42,6 +42,7 @@
         </div>
 
         <nav class="navbar">
+          <button class="nav-toggle" id="navToggle">☰</button>
           <ul>
             <li class="nav-item">
               <a href="/" class="nav-link">Home</a>
@@ -63,6 +64,9 @@
               >
                 <i class="fa-solid fa-cart-shopping"> 0 </i>
               </a>
+            </li>
+            <li class="nav-item">
+              <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
             </li>
           </ul>
         </nav>
@@ -137,7 +141,7 @@
             <a href="#">Shop now</a>
           </div>
           <div class="extra-img extra-laptop">
-            <img class="flipped-img" src="./images/laptop.png" alt="" />
+            <img loading="lazy" class="flipped-img" src="./images/laptop.png" alt="" />
           </div>
         </div>
 
@@ -148,7 +152,7 @@
             <a href="#">Show now</a>
           </div>
           <div class="extra-img">
-            <img class="flipped-img" src="./images/headphoneEcom.png" alt="" />
+            <img loading="lazy" class="flipped-img" src="./images/headphoneEcom.png" alt="" />
           </div>
         </div>
 
@@ -159,7 +163,7 @@
             <a href="#">Show now</a>
           </div>
           <div class="extra-img">
-            <img class="flipped-img" src="./images/mobiles.png" alt="" />
+            <img loading="lazy" class="flipped-img" src="./images/mobiles.png" alt="" />
           </div>
         </div>
       </div>
@@ -232,7 +236,7 @@
         <article class="information [card]">
           <span class="category"></span>
           <div class="imageContainer">
-            <img class="productImage flipped-img" src="" alt="" />
+            <img loading="lazy" class="productImage flipped-img" src="" alt="" />
           </div>
           <h2 class="productName"></h2>
 
@@ -327,7 +331,7 @@
         </div>
         <div class="choose-center-div" data-aos="zoom-in" data-aos-delay="300">
           <figure>
-            <img class="flipped-img" src="./images/ecompost.png" alt="thapa technical home page " />
+            <img loading="lazy" class="flipped-img" src="./images/ecompost.png" alt="thapa technical home page " />
           </figure>
         </div>
         <div class="choose-right-div">
@@ -388,7 +392,7 @@
             Welcome to Thapa EcomStore, your ultimate destination for
             cutting-edge gadgets!
           </p>
-          <img class="flipped-img" src="https://i.postimg.cc/Nj9dgJ98/cards.png" alt="cards" />
+          <img loading="lazy" class="flipped-img" src="https://i.postimg.cc/Nj9dgJ98/cards.png" alt="cards" />
         </div>
         <div class="content_2">
           <h4>SHOPPING</h4>
@@ -422,6 +426,17 @@
     </footer>
 
     <!-- ========== End footer Section ========== -->
+    <div class="preloader" id="preloader"><div class="spinner"></div></div>
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+    <div id="lightbox" class="lightbox-overlay">
+      <div class="lightbox-content">
+        <img id="lightboxImage" alt="preview" />
+        <div class="lightbox-nav">
+          <button class="lightbox-btn" id="lightPrev">‹</button>
+          <button class="lightbox-btn" id="lightNext">›</button>
+        </div>
+      </div>
+    </div>
     <script type="module" src="./src/main.js"></script>
   </body>
 </html>

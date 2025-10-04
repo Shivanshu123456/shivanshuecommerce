@@ -377,6 +377,10 @@
 </head>
 <body>
 <div class="card">
+  <div class="mode-toggle">
+    <button id="btnSignIn" type="button" class="mode-btn active">Sign In</button>
+    <button id="btnSignUp" type="button" class="mode-btn">Sign Up</button>
+  </div>
   <div id="boy" class="hero">
     <svg viewBox="0 0 200 200" width="100%" height="100%">
       <!-- body with gradient -->
@@ -448,11 +452,19 @@
       <input id="username" type="text" required minlength="3" autocomplete="username"/>
       <span class="field-icon" id="usernameIcon"></span>
     </div>
+    <div class="field" id="emailField" style="display:none;">
+      <label for="email">Email</label>
+      <input id="email" type="email" autocomplete="email"/>
+    </div>
     <div class="field">
       <label for="password">Password</label>
       <input id="password" type="password" required minlength="6" autocomplete="current-password"/>
       <button type="button" class="toggle-password" id="togglePassword">👁️</button>
       <span class="field-icon" id="passwordIcon"></span>
+    </div>
+    <div class="field" id="confirmField" style="display:none;">
+      <label for="confirmPassword">Confirm Password</label>
+      <input id="confirmPassword" type="password" minlength="6" autocomplete="new-password"/>
     </div>
     <button type="submit">Sign in</button>
     <div class="muted">Focus password → hands cover eyes 👀 | Try typing!</div>
@@ -467,6 +479,13 @@ const togglePassword = document.getElementById('togglePassword');
 const usernameIcon = document.getElementById('usernameIcon');
 const passwordIcon = document.getElementById('passwordIcon');
 const card = document.querySelector('.card');
+const emailField = document.getElementById('emailField');
+const emailInput = document.getElementById('email');
+const confirmField = document.getElementById('confirmField');
+const confirmPassword = document.getElementById('confirmPassword');
+const btnSignIn = document.getElementById('btnSignIn');
+const btnSignUp = document.getElementById('btnSignUp');
+let currentMode = 'signin';
 let idleTimer = null;
 
 // Add breathing animation when idle
@@ -605,8 +624,13 @@ function createSparkle(x, y){
 // Enhanced form submission with celebration
 document.getElementById('loginForm').addEventListener('submit', e => {
   e.preventDefault();
-  
-  if(username.value.length >= 3 && password.value.length >= 6){
+  const isSignup = currentMode === 'signup';
+  const usernameOk = username.value.length >= 3;
+  const passwordOk = password.value.length >= 6;
+  const emailOk = !isSignup || (emailInput && emailInput.value && emailInput.checkValidity());
+  const confirmOk = !isSignup || (confirmPassword && confirmPassword.value === password.value);
+
+  if(usernameOk && passwordOk && emailOk && confirmOk){
     // Success animations
     boy.classList.remove('cover-eyes', 'look-down', 'look-left');
     boy.classList.add('happy');
@@ -626,7 +650,7 @@ document.getElementById('loginForm').addEventListener('submit', e => {
     document.body.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
     
     setTimeout(() => {
-      alert('🎉 Login successful! (Demo only — form not submitted)');
+      alert(isSignup ? '🎉 Signup successful! (Demo only — form not submitted)' : '🎉 Login successful! (Demo only — form not submitted)');
       // Reset everything
       boy.classList.remove('happy');
       card.classList.remove('celebrate');
@@ -799,6 +823,40 @@ password.addEventListener('focus', () => {
   if(animationLock) return;
   lockAnimation(600);
 });
+
+// Mode handling: toggle between Sign In and Sign Up and support URL param
+function setMode(mode){
+  currentMode = mode === 'signup' ? 'signup' : 'signin';
+  const isSignup = currentMode === 'signup';
+  // Update headings
+  document.querySelector('h1').textContent = isSignup ? 'Create your account' : 'Welcome back';
+  document.querySelector('.lead').textContent = isSignup ? 'Sign up to get started' : 'Sign in to continue';
+  // Toggle fields visibility and required flags
+  emailField.style.display = isSignup ? '' : 'none';
+  confirmField.style.display = isSignup ? '' : 'none';
+  if(emailInput){ emailInput.required = isSignup; }
+  if(confirmPassword){ confirmPassword.required = isSignup; }
+  // Update submit button text
+  const submitBtn = document.querySelector('button[type="submit"]');
+  submitBtn.textContent = isSignup ? 'Sign up' : 'Sign in';
+  // Active state on toggle buttons
+  btnSignIn.classList.toggle('active', !isSignup);
+  btnSignUp.classList.toggle('active', isSignup);
+}
+
+btnSignIn.addEventListener('click', () => setMode('signin'));
+btnSignUp.addEventListener('click', () => setMode('signup'));
+
+// Initialize mode from URL parameter if present
+(function initModeFromUrl(){
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const mode = params.get('mode');
+    setMode(mode === 'signup' ? 'signup' : 'signin');
+  } catch (e) {
+    setMode('signin');
+  }
+})();
 </script>
 </body>
 </html>

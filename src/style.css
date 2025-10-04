@@ -24,10 +24,27 @@
   --glow-color: hsl(186, 91%, 4%);
 }
 
+/* Dark theme variables using data-theme attribute */
+[data-theme="dark"] {
+  --buttonColor: #e5e7eb;
+  --secondaryColor: #9aa0a6;
+  --borderColor: #2b2f36;
+  --backgroundColor: #0f1115;
+  --backgroundSecondary: #171a21;
+  --textColor: #e5e7eb;
+  --anchorColor: #8aa4ff;
+  --main-color: #6d7bff;
+  --supporting-color: #1f2a44;
+  --glow-color: rgba(93, 188, 252, 0.35);
+}
+
 html {
   font-size: 62.5%;
   color: var(--textColor);
 }
+
+/* Smooth scroll behavior for all internal navigation */
+html { scroll-behavior: smooth; }
 
 /* have a look into body once after we done with rest of the styling  */
 body {
@@ -400,6 +417,69 @@ main .section-hero {
   width: 28rem;
   height: auto;
 }
+
+/* Flip utility applied to all images via JS */
+.flipped-img { transform: scaleX(-1); }
+
+/* Ensure rotation + flip compose for specific image cases */
+.div-extra:last-child img.flipped-img { transform: rotate(5deg) scaleX(-1); }
+
+/* Preserve flip on hover interactions */
+.cards:hover .imageContainer img.flipped-img,
+.cards:hover .productImage.flipped-img {
+  transform: translateY(-4px) scale(1.02) rotate(-1deg) scaleX(-1);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  margin-left: 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--borderColor);
+  background: var(--backgroundSecondary);
+  color: var(--textColor);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.theme-toggle:hover { transform: translateY(-1px) scale(1.03); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
+.theme-toggle:active { transform: translateY(0) scale(0.98); }
+
+/* Hamburger menu */
+.hamburger { display: none; width: 3.2rem; height: 3.2rem; border-radius: 0.6rem; border: 1px solid var(--borderColor); background: var(--backgroundSecondary); position: relative; cursor: pointer; }
+.hamburger .bar, .hamburger .bar::before, .hamburger .bar::after { position: absolute; left: 50%; top: 50%; width: 18px; height: 2px; background: var(--textColor); content: ""; transform: translate(-50%, -50%); transition: transform 0.3s ease, opacity 0.3s ease; }
+.hamburger .bar::before { transform: translate(-50%, calc(-50% - 6px)); }
+.hamburger .bar::after  { transform: translate(-50%, calc(-50% + 6px)); }
+.hamburger.active .bar { opacity: 0; }
+.hamburger.active .bar::before { transform: translate(-50%, -50%) rotate(45deg); }
+.hamburger.active .bar::after  { transform: translate(-50%, -50%) rotate(-45deg); }
+
+/* Navbar collapsible behavior */
+@media (max-width: 768px) {
+  .hamburger { display: inline-block; margin-left: auto; }
+  .section-navbar .navbar { display: none; }
+  .section-navbar .navbar.open { display: block; }
+  .section-navbar .navbar ul { flex-direction: column; gap: 1.2rem; padding-top: 1rem; }
+}
+
+/* Back to top floating button */
+.back-to-top { position: fixed; right: 1.6rem; bottom: 1.6rem; width: 3.6rem; height: 3.6rem; border-radius: 999px; border: 1px solid var(--borderColor); background: var(--backgroundSecondary); color: var(--textColor); display: grid; place-items: center; box-shadow: 0 6px 18px rgba(0,0,0,0.15); opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity 0.25s ease, transform 0.25s ease; z-index: 999; }
+.back-to-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+/* Hover effects: slight scale + shadow for buttons and links */
+button, .btn, a { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+button:hover, .btn:hover, a:hover { transform: translateY(-1px) scale(1.01); box-shadow: rgba(0,0,0,0.1) 0 8px 20px; }
+
+/* Ripple effect */
+.ripple { position: absolute; width: 12px; height: 12px; border-radius: 999px; background: currentColor; opacity: 0.25; transform: translate(-50%, -50%) scale(1); animation: rippleExpand 0.65s ease-out; pointer-events: none; }
+@keyframes rippleExpand { from { opacity: 0.3; transform: translate(-50%, -50%) scale(0.6); } to { opacity: 0; transform: translate(-50%, -50%) scale(12); } }
+
+/* Form validation states */
+.input-error { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15); }
+.error-msg { margin-top: 0.6rem; font-size: 1.3rem; color: #ef4444; }
 
 /* Micro-interactions: product cards, images, hero, and buttons */
 .cards {

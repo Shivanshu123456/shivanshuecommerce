@@ -43,6 +43,7 @@
           </a>
         </div>
         <nav class="navbar">
+          <button class="nav-toggle" id="navToggle">☰</button>
           <ul>
             <li class="nav-item">
               <a href="/" class="nav-link">Home </a>
@@ -64,6 +65,9 @@
               >
                 <i class="fa-solid fa-cart-shopping"></i> 0</a
               >
+            </li>
+            <li class="nav-item">
+              <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
             </li>
           </ul>
         </nav>
@@ -163,6 +167,17 @@
 
     <!-- ========== End About Section ========== -->
 
+    <div class="preloader" id="preloader"><div class="spinner"></div></div>
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+    <div id="lightbox" class="lightbox-overlay">
+      <div class="lightbox-content">
+        <img id="lightboxImage" alt="preview" />
+        <div class="lightbox-nav">
+          <button class="lightbox-btn" id="lightPrev">‹</button>
+          <button class="lightbox-btn" id="lightNext">›</button>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.js"></script>
 
     <!-- JS SCRIPT  -->
